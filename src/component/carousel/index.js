@@ -9,25 +9,24 @@ import foto5 from '../../assets/foto5.jpeg';
 
 export default () => (
     <Carousel
+    style={{position:'relative', display:'flex'}}
     showThumbs={false} 
-    autoPlay>
-        <div style={{paddingTop: 119}}>
-            <img alt="" src={foto1} style={{width:'100%', height:200}}/>
+    autoPlay={false}
+    >
+        <div>
+            <img alt="" src={foto1} style={{ bordeRadius: 25, width:1200, height: 320}}/>
         </div>
-        <div style={{paddingTop: 119}} >
-            <img alt="" src={foto2} style={{width:'100%', height:200}}/>
+        <div>
+            <img alt="" src={foto2} style={{ bordeRadius: 25, width:1200, height: 320}}/>
         </div>
-        <div style={{paddingTop: 119}} >
-            <img alt="" src={foto3} style={{width:'100%', height:200}}/>
-           
+        <div>
+            <img alt="" src={foto3} style={{ bordeRadius: 25, width:1200, height: 320}}/>
         </div>
-        <div style={{paddingTop: 119}}>
-            <img alt="" src={foto4} style={{width:'100%', height:200}}/>
-            
+        <div>
+            <img alt="" src={foto4} style={{ bordeRadius: 25, width:1200, height: 320}}/>
         </div>
-        <div style={{paddingTop: 119}} >
-            <img alt="" src={foto5} style={{width:'100%', height:200}}/>
-            
+        <div>
+            <img alt="" src={foto5} style={{width:'100%', height:200}}/> 
         </div>
     </Carousel>
 );

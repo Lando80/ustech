@@ -1,0 +1,142 @@
+.container{
+
+width: 100%;
+height: auto;
+}
+.containerGlobal{
+    width: 100%;
+    height: 100vh;
+    
+}
+p{
+    color:white;
+    font-size: medium;
+  
+}
+header{
+    width: 100%;
+    height: 64px;
+    background-color: #2AAF7F;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+.containers{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.containerPai{
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: row;
+}
+.container_link{
+    width: 50%;
+    right: 10px;
+    left: 10px;
+    top: 20px;
+   
+}
+.container_ntc{
+    display: flex;
+    flex-direction: column;
+
+}
+.photo{
+    margin-left: 20px;
+    width: auto;
+    height: 300px;
+}
+.photo10x11{
+    height: 150px;
+    width: 224px;
+}
+.photo10x12{
+    height: 150px;
+    width: 224px;
+    margin-top: 10px;
+}
+.container_link2{
+    padding-left: 10px;
+    width: 27%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(240, 227, 227);
+}
+.noticia1{
+    width: 50%;
+    height: 150px;
+    padding-top: 10px;
+}
+.noticia{
+    width: 50%;
+    height: 150px;
+    padding-top: 10px;
+   
+    
+}
+.noticiaText{
+    bottom: 0px;
+}
+.barSections{
+    background: #2EC158;
+    width: 100%;
+    height: 44px;
+    display: flex;
+    padding: 15px;
+   
+    justify-content: space-between;
+}
+.blockOne{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid white; */
+}
+.blockTwo{
+    width: 30%;
+    height: 100%;
+    /* border: 1px solid white; */
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.inputSeach{
+    background: #194B38;
+    opacity: 0.3;
+    border-radius: 20px;
+    color: #fff;
+}
+.userButton{
+    background: #fff;
+    border-radius: 40px;
+    width:41px;
+    height: 41px;  
+   
+}
+
+.box{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(49, 141, 61);
+}
+.user{
+   
+    width: 30%;
+    height: 100%;
+    /* border: 1px solid red; */
+}
+#carrosel{
+border: 1px solid red!important ;
+}
