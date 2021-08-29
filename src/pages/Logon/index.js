@@ -34,10 +34,10 @@ export default function Logon() {
     return (
         <div className="logon-container">
             <section className="form">
-                <img src={logoImg} alt="Be the hero" itle="Be the Hero" />
+               
 
                 <form onSubmit={handleLogin}>
-                    <h1>Faça seu logon</h1>
+                    <h1>Faça seu login</h1>
                     <input placeholder="Sua ID"
                         value={id}
                         onChange={e => setId(e.target.value)}
@@ -52,7 +52,7 @@ export default function Logon() {
                     </Link>
                 </form>
             </section>
-            <img src={heroesImg} alt="Heroes" title="Heroes" />
+           
             <Chat></Chat>
         </div>
     );
