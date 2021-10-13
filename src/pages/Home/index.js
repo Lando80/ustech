@@ -21,11 +21,11 @@ import Carousel from '../../component/carousel/index';
 
 function Home() {
     return (
-     
+
       <section className="container">
         <div className="containerGlobal">
           <Chat/>
-          <header> 
+          <header>
             <div className="blockOne">
               <img src={Logo} style={{width: 233}}></img>
             </div>
@@ -33,11 +33,11 @@ function Home() {
             <div  className="blockTwo">
 
                 <input type="search" placeholder="Pesquise aqui" className="inputSeach">
-                
+
                     {/* /<img src={search}/> */}
-                 
+
                 </input>
-            
+
               <button className="userButton"></button>
 
             </div>
@@ -82,4 +82,3 @@ function Home() {
 
     )}
       export default Home;
-    
