@@ -8,10 +8,21 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      name: '',
+      gender: '',
+      data_nacimento: '',
+      cpf:'',
+      email:'',
+      telefone:'',
+      rg:'',
+      cep:'',
+      bairro:'',
+      rua:'',
+      numero:'',
+      logradouro:'',
     }
+
   }
-  
   componentDidMount() {
     addResponseMessage("Olá, eu sou a Mia, Qual é o seu nome?");
   }
