@@ -16,6 +16,7 @@ export const Table = styled.table`
   padding-bottom: 0.5rem;
 
   thead th {
+    white-space: nowrap;
     font-size: 0.85rem;
     background-color: var(--secondary-color);
     color: var(--text-light);
