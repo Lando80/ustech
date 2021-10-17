@@ -12,23 +12,21 @@ function Dashboard() {
   const [contributors, setContributors] = useState([]);
 
   const getContributors = async () => {
-    try {
-      const response = await api.get("/contributors");
+    return api
+      .get("/contributors")
+      .then((res) => res.data)
+      .catch((err) => alert(err));
+  };
 
-      return response.data;
-    } catch (error) {
-      alert(error);
-    }
+  const fetchContributors = async () => {
+    await getContributors().then(setContributors);
   };
 
   useEffect(() => {
-    const handleContributors = async () => {
-      const data = await getContributors();
-      setContributors(data);
-    };
-
-    handleContributors();
+    fetchContributors();
   }, []);
+
+  useEffect(() => {}, [contributors]);
 
   return (
     <Fragment>
