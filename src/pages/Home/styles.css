@@ -1,0 +1,112 @@
+.load {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 88px;
+  height: 78px;
+  margin: -39px 0 0 -44px;
+  z-index: 99999;
+}
+
+.bg_modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99998;
+}
+
+.view_modal {
+  position: absolute;
+
+  left: 50%;
+
+  top: 0%;
+
+  z-index: 99998;
+
+  opacity: 1;
+
+  margin-left: -426px;
+
+  border: 31px solid #ffffff;
+
+  background-color: #ffffff;
+
+  text-align: center;
+}
+
+@media only screen and (max-width: 782px) {
+  .view_modal {
+    position: absolute;
+
+    text-align: left;
+
+    z-index: 99998;
+
+    padding: 15px;
+
+    margin: 5px;
+
+    border: 3px solid #ffffff;
+
+    background-color: #ffffff;
+
+    left: 0%;
+
+    top: 0%;
+  }
+
+  .img_banner {
+    max-width: 100%;
+
+    height: auto;
+
+    display: block;
+  }
+}
+
+.modal {
+  cursor: pointer;
+}
+
+#background_banner {
+  border: 0px solid #f00;
+  width: 413px;
+  height: 586px;
+  margin: auto;
+}
+
+.none {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.transform {
+  transform: translate3d(-1140px, 0px, 0px);
+}
+
+.w190 {
+  width: 190px;
+}
+
+.h87 {
+  height: 87px;
+}
+
+.bg_1 {
+  background-image: url(https://semef.manaus.am.gov.br/wp-content/themes/semef/dist/imagens/2021/bg-cabecalho.png);
+  height: 160px;
+}
+
+.bg_2 {
+  background-image: url(https://semef.manaus.am.gov.br/wp-content/themes/semef/dist/imagens/2021/bg-menu.png);
+  background-repeat: repeat-x;
+}
+
+.bg_3 {
+  background: url(https://semef.manaus.am.gov.br/wp-content/themes/semef/dist/imagens/2021/bg-rodape.png)
+    repeat-x bottom left;
+}

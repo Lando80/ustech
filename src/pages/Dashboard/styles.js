@@ -13,11 +13,14 @@ export const Table = styled.table`
   border-collapse: collapse;
   border-radius: 0.25rem;
 
+  padding-bottom: 0.5rem;
+
   thead th {
     font-size: 0.85rem;
     background-color: var(--secondary-color);
     color: var(--text-light);
     padding: 1rem;
+    text-align: center;
 
     &:first-of-type {
       border-radius: 0 0 0 0.25rem;

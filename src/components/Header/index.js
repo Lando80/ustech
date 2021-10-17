@@ -15,9 +15,11 @@ function Header(props) {
 
   return (
     <Container>
-      <Logo width="15rem" />
-      <h1>MIA Dashboard</h1>
-      <span onClick={() => handleLogout()}>Sair</span>
+      <header>
+        <Logo width="15rem" />
+        <h1>MIA Dashboard</h1>
+        <span onClick={() => handleLogout()}>Sair</span>
+      </header>
     </Container>
   );
 }

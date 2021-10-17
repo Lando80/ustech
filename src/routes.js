@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
+import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 
@@ -25,7 +26,7 @@ const Routes = () => (
   <BrowserRouter>
     <GlobalStyle />
     <Switch>
-      <Route exact path="/" component={() => <p>Home</p>} />
+      <Route exact path="/" component={Home} />
       <Route exact path="/login" component={SignIn} />
       <PrivateRoute path="/dashboard" component={Dashboard} />
       <Route path="*" component={() => <h1>Page not found</h1>} />

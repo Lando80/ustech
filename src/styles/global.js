@@ -50,23 +50,4 @@ body, html {
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
 }
 
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #ccc;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #a6a6a6;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #969595;
-}
 `;

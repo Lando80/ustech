@@ -1,0 +1,11 @@
+.rcw-conversation-container > .rcw-header {
+  background-color: #10559b;
+}
+
+.rcw-message-text > p {
+  color: black;
+}
+
+.rcw-widget-container {
+  z-index: 999 !important;
+}
