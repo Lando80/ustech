@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import dayjs from "dayjs";
 
 function Contributor({ data, id }) {
   delete data._id;
   delete data.__v;
+
+  const [createdAt, setCreatedAt] = useState(data.createdAt);
+  const [updatedAt, setUpdatedAt] = useState(data.updatedAt);
+
+  function formatTimestamps() {
+    setCreatedAt(dayjs(createdAt).format("DD/MM/YYYY"));
+    setUpdatedAt(dayjs(updatedAt).format("DD/MM/YYYY"));
+  }
+
+  useEffect(() => {
+    formatTimestamps();
+  }, []);
 
   return (
     <tr className={id % 2 === 0 ? "white-row" : "green-row"}>
@@ -18,8 +31,8 @@ function Contributor({ data, id }) {
       <td>{data.bairro || "-"}</td>
       <td>{data.logradouro || "-"}</td>
       <td>{data.numero || "-"}</td>
-      <td>{data.createdAt || "-"}</td>
-      <td>{data.updatedAt || "-"}</td>
+      <td>{createdAt}</td>
+      <td>{updatedAt}</td>
     </tr>
   );
 }
