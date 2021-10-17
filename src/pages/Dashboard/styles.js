@@ -71,6 +71,10 @@ export const Table = styled.table`
           border-top-right-radius: 0.25rem;
           border-bottom-right-radius: 0.25rem;
         }
+
+        &.invalid {
+          color: var(--error-color);
+        }
       }
     }
   }

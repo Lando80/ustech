@@ -22,9 +22,9 @@ export const Form = styled.form`
   justify-content: space-around;
 
   p {
-    color: #ff3333;
+    color: var(--error-color);
     margin-bottom: 0.9rem;
-    border: 2px solid #ff3333;
+    border: 2px solid var(--error-color);
     border-radius: 0.25rem;
     padding: 0.625rem;
     width: 100%;

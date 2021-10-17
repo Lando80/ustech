@@ -21,6 +21,8 @@ body, html {
   --primary-color: #00A5AD;
   --secondary-color: #00787E;
 
+  --error-color: #ff3333;
+
   --text-light: #FFF;
   --text-dark: #1F1F1F;
 
@@ -49,5 +51,4 @@ body, html {
   -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
 }
-
 `;

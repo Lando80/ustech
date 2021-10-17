@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 
 function Contributor({ data, id }) {
-  delete data._id;
-  delete data.__v;
-
   const [createdAt, setCreatedAt] = useState(data.createdAt);
   const [updatedAt, setUpdatedAt] = useState(data.updatedAt);
+  const [contributor, setContributor] = useState([]);
 
   function formatTimestamps() {
     setCreatedAt(dayjs(createdAt).format("DD/MM/YYYY"));
@@ -15,24 +13,36 @@ function Contributor({ data, id }) {
 
   useEffect(() => {
     formatTimestamps();
+
+    let amount = [];
+    delete data._id;
+    delete data.createdAt;
+    delete data.updatedAt;
+    delete data.__v;
+
+    Array(data).forEach((obj) => {
+      for (const key in obj) {
+        amount = [...amount, obj[key]];
+      }
+    });
+
+    setContributor(amount);
   }, []);
 
-  useEffect(() => {}, [createdAt, updatedAt]);
+  useEffect(() => {}, [createdAt, updatedAt, contributor]);
 
   return (
     <tr className={id % 2 === 0 ? "white-row" : "green-row"}>
       <td>{id + 1}</td>
-      <td>{data.cpf}</td>
-      <td>{data.nome}</td>
-      <td>{data.status || "-"}</td>
-      <td>{data.email}</td>
-      <td>{data.telefone}</td>
-      <td>{data.cep || "-"}</td>
-      <td>{data.cidade || "-"}</td>
-      <td>{data.estado || "-"}</td>
-      <td>{data.bairro || "-"}</td>
-      <td>{data.logradouro || "-"}</td>
-      <td>{data.numero || "-"}</td>
+
+      {contributor.map((data, index) => {
+        return (
+          <td key={index} className={!data ? "invalid" : ""}>
+            {data || "N/A"}
+          </td>
+        );
+      })}
+
       <td>{createdAt}</td>
       <td>{updatedAt}</td>
     </tr>

@@ -53,12 +53,15 @@ function Dashboard() {
           </thead>
 
           <tbody>
-            {contributors &&
+            {contributors.length > 0 ? (
               contributors.map((contributor, index) => {
                 return (
                   <Contributor data={contributor} key={index} id={index} />
                 );
-              })}
+              })
+            ) : (
+              <p>There's no contributors registered yet.</p>
+            )}
           </tbody>
         </Table>
       </Container>
