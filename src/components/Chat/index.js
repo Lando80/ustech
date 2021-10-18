@@ -6,90 +6,69 @@ import "./style.css";
 import api from "../../services/api";
 
 function Chat() {
-  const [nome, setNome] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [cep, setCep] = useState("");
+  const [contributor, setContributor] = useState({
+    _id: "",
+    nome: "",
+    cpf: "",
+    email: "",
+    telefone: "",
+    cep: "",
+  });
 
-  const [_id, setId] = useState("");
-
-  const [index, setIndex] = useState(0);
-  const [response, setResponse] = useState("");
-
-  const createContributor = async () => {
-    try {
-      const res = await api.post("/contributor", { nome });
-      setResponse(res.data.message);
-      setId(res.data._id);
-    } catch (error) {
-      setResponse(error.response.data.message);
-    }
-  };
-
-  const updateContributor = async (key, value) => {
-    try {
-      let obj = {};
-      obj[key] = value;
-
-      let res;
-      if (key === "cpf") {
-        console.log("CPF executado");
-        obj["_id"] = _id;
-        res = await api.put(`/contributor/${key}`, obj);
-      } else {
-        obj["cpf"] = cpf;
-        res = await api.put(`/contributor/${key}`, obj);
-        console.log(`${key} executado`);
-      }
-
-      setResponse(res.data.message);
-    } catch (error) {
-      setResponse(error.response.data.message);
-    }
-  };
+  const [conversation, setConversation] = useState({
+    userMessage: "",
+    botResponse: "",
+    messageIndex: 0,
+  });
 
   useEffect(() => {
-    addResponseMessage("Olá, eu sou a Mia.");
-    addResponseMessage("Qual é o seu nome?");
+    addResponseMessage("Olá, eu sou a MIA 🤗");
+    addResponseMessage("Como você se chama?");
   }, []);
 
-  useEffect(() => {
-    console.log(index);
-    if (nome) createContributor();
-    if (cpf && index === 2) updateContributor("cpf", cpf);
-    if (email && index === 3) updateContributor("email", email);
-    if (phone && index === 4) updateContributor("phone", phone);
-    if (cep && index === 5) updateContributor("cep", cep);
-  }, [index]);
+  const createContributor = async () => {
+    const nome = conversation.userMessage;
 
-  useEffect(() => {
-    if (response) {
-      addResponseMessage(response);
-      console.log("Response: " + response);
-    }
-  }, [response]);
+    try {
+      const res = await api.post("/contributor", { nome });
 
-  const handleNewUserMessage = (newMessage) => {
-    if (index === 0) {
-      setNome(newMessage);
-      addResponseMessage("Olá, " + newMessage);
-    }
-    if (index === 1) {
-      setCpf(newMessage);
-    }
-    if (index === 2) {
-      setEmail(newMessage);
-    }
-    if (index === 3) {
-      setPhone(newMessage);
-    }
-    if (index === 4) {
-      setCep(newMessage);
-    }
+      setConversation((prev) => ({
+        ...prev,
+        botResponse: res.data.message,
+        messageIndex: prev.messageIndex + 1,
+      }));
 
-    setIndex(index + 1);
+      setContributor((prev) => ({ ...prev, nome }));
+    } catch (error) {
+      let { response } = error;
+      if (response.status === 400) addResponseMessage(response.data.message);
+      else console.log(error);
+    }
   };
+
+  const handleNewUserMessage = (userMessage) => {
+    setConversation((prev) => ({
+      ...prev,
+      userMessage,
+    }));
+  };
+
+  useEffect(() => {
+    if (conversation.userMessage && conversation.messageIndex === 0)
+      createContributor();
+    else console.log("Funcao de update");
+  }, [conversation.userMessage]);
+
+  useEffect(() => {
+    if (conversation.botResponse) {
+      addResponseMessage(conversation.botResponse);
+
+      setConversation((prev) => ({
+        ...prev,
+        botResponse: "",
+      }));
+    }
+  }, [conversation.botResponse]);
 
   return (
     <div className="App">
