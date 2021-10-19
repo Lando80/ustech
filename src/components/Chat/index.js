@@ -38,28 +38,116 @@ function Chat() {
         messageIndex: prev.messageIndex + 1,
       }));
 
-      setContributor((prev) => ({ ...prev, nome }));
+      const { _id } = res.data;
+
+      setContributor((prev) => ({ ...prev, nome, _id }));
     } catch (error) {
       let { response } = error;
-      if (response.status === 400) addResponseMessage(response.data.message);
-      else console.log(error);
+
+      if (response.status === 500) {
+        addResponseMessage(
+          "Ops... Parece que estou com um probleminha em meu servidor 😯"
+        );
+        addResponseMessage("Volte daqui a poquinho, por favor 😅");
+        return;
+      }
+      addResponseMessage(response.data.message);
+    }
+  };
+
+  const updateContributor = async () => {
+    // pegando o id do contributor
+    const { _id } = contributor;
+    // copiando o estado de contributor
+    let obj = contributor;
+    // removendo a chave id
+    delete obj._id;
+
+    // criando um novo array para receber as chaves do objeto
+    const objKeys = [];
+    for (const key in obj) {
+      objKeys.push(key);
+    }
+
+    // pegando o campo atual de acordo com a posição do index
+    const currentKey = objKeys[conversation.messageIndex];
+
+    // pegando o valor que o usuario informou para o campo atua
+    const value = conversation.userMessage;
+
+    try {
+      let res = "";
+
+      // caso o user esteja no cpf, tambem precisamos informar o id dele
+      if (currentKey === "cpf") {
+        res = await api.put(`/contributor/${currentKey}`, {
+          _id,
+          [currentKey]: value,
+        });
+      }
+      // caso nao, precisamos informar o campo atual + o cpf
+      else {
+        res = await api.put(`/contributor/${currentKey}`, {
+          [currentKey]: value,
+          cpf: contributor.cpf,
+        });
+      }
+
+      // se tudo der certo, vamos atualizar o estado da conversa
+      // adicionamos a resposta da requisicao na botResponse e atualizamos o index
+      setConversation((prev) => ({
+        ...prev,
+        botResponse: res.data.message,
+        messageIndex: prev.messageIndex + 1,
+      }));
+
+      // e tambem atualizamos o estado do contribuinte de forma dinamica
+      setContributor((prev) => ({ ...prev, [currentKey]: value }));
+    } catch (error) {
+      let { response } = error;
+
+      // caso ocorra algum erro no servidor...
+      if (response.status === 500) {
+        addResponseMessage(
+          "Ops... Parece que estou com um probleminha em meu servidor 😯"
+        );
+        addResponseMessage("Volte daqui a poquinho, por favor 😅");
+        return;
+      }
+
+      // caso o usuario tenha informado algum valor invalido para o campo atual
+      addResponseMessage(response.data.message);
     }
   };
 
   const handleNewUserMessage = (userMessage) => {
+    // sempre que o usuario enviar uma nova mensagem, atualizamos o estado da userMessage
     setConversation((prev) => ({
       ...prev,
       userMessage,
     }));
   };
 
+  // e toda vez que a userMessage for atualizada, chamaremos a requisicao de acordo com o index
   useEffect(() => {
+    // caso o index == 0, criamos o contribuinte no banco
     if (conversation.userMessage && conversation.messageIndex === 0)
       createContributor();
-    else console.log("Funcao de update");
+    //caso nao, atualizamos os outros dados
+    if (conversation.userMessage && conversation.messageIndex > 0)
+      updateContributor();
+
+    // NAO TA FUNCIONANDO, REFATORAR
+    if (conversation.messageIndex > 5) {
+      addResponseMessage(
+        `Foi um prazer conversar com você, ${contributor.nome.split("")[0]} 😊`
+      );
+      addResponseMessage("Até mais 🙋‍♀️");
+    }
   }, [conversation.userMessage]);
 
   useEffect(() => {
+    // sera executado quando a resposta do bot for atualizado pela requisicao
     if (conversation.botResponse) {
       addResponseMessage(conversation.botResponse);
 
