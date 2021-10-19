@@ -175,7 +175,6 @@ function Home() {
                           name="s"
                           className="col-xs-10 col-sm-10 col-md-8 col-lg-10 search-field"
                           placeholder="Pesquisar"
-                          value=""
                         />
                         <button className="btn btn-busca" type="submit">
                           <span className="glyphicon glyphicon-search"></span>
@@ -296,7 +295,6 @@ function Home() {
                       >
                         <section
                           id="semef-atende2-section"
-                          tabindex="-1"
                           className=" focusable"
                         >
                           Manaus Atende
@@ -447,16 +445,11 @@ function Home() {
           opacity: 0.5,
           display: "none",
         }}
-        onclick="fecharModal();"
       ></div>
 
       <div className="container">
         <div className="row">
-          <section
-            id="noticias"
-            className="col-sm-12 col-md-6 focusable"
-            tabindex="-1"
-          >
+          <section id="noticias" className="col-sm-12 col-md-6 focusable">
             <div className="row">
               <div className="col-sm-12">
                 <div
@@ -555,7 +548,7 @@ function Home() {
           <div className="ultimas-noticias col-sm-6 col-md-3">
             <h3>Últimas Notícias</h3>
             <div className="row">
-              <artcle className="noticia col-xs-12">
+              <article className="noticia col-xs-12">
                 <a
                   href="https://semef.manaus.am.gov.br/noticia/nona-parcela-do-iss-autonomo-vence-nesta-quinta-feira-30-9/"
                   title="Nona parcela do ISS Autônomo vence nesta quinta-feira, 30/9"
@@ -565,8 +558,8 @@ function Home() {
                     Nona parcela do ISS Autônomo vence nesta quinta-feira, 30/9
                   </h5>
                 </a>
-              </artcle>
-              <artcle className="noticia col-xs-12">
+              </article>
+              <article className="noticia col-xs-12">
                 <a
                   href="https://semef.manaus.am.gov.br/noticia/prefeitura-de-manaus-realiza-audiencia-publica-para-apresentacao-dos-projetos-de-leis-do-ppa-2022-2025-e-loa-2022/"
                   title="Prefeitura de Manaus realiza audiência pública para apresentação dos projetos de leis do PPA 2022-2025 e LOA 2022"
@@ -578,8 +571,8 @@ function Home() {
                     2022
                   </h5>
                 </a>
-              </artcle>
-              <artcle className="noticia col-xs-12">
+              </article>
+              <article className="noticia col-xs-12">
                 <a
                   href="https://semef.manaus.am.gov.br/noticia/contribuintes-aderem-aos-canais-de-atendimento-tributario-on-line-da-prefeitura-de-manaus/"
                   title="Contribuintes aderem aos canais de atendimento tributário on-line da Prefeitura de Manaus"
@@ -590,8 +583,8 @@ function Home() {
                     on-line da Prefeitura de Manaus
                   </h5>
                 </a>
-              </artcle>
-              <artcle className="noticia col-xs-12">
+              </article>
+              <article className="noticia col-xs-12">
                 <a
                   href="https://semef.manaus.am.gov.br/noticia/sorteados-da-nona-edicao-do-nota-premiada-manaus-recebem-premios/"
                   title="Sorteados da nona edição do ‘Nota Premiada Manaus’ recebem prêmios"
@@ -602,7 +595,7 @@ function Home() {
                     prêmios
                   </h5>
                 </a>
-              </artcle>
+              </article>
             </div>
           </div>
 
@@ -688,7 +681,7 @@ function Home() {
       </div>
 
       <div className="clearfix"></div>
-      <section id="banners" tabindex="-1" className=" focusable">
+      <section id="banners" className=" focusable">
         <div className="container">
           <div
             id="carousel-banners"
@@ -708,12 +701,10 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-cloned"
                   data-slick-index="-6"
                   aria-hidden="true"
-                  tabindex="-1"
                 >
                   <a
                     href="http://semefatende.manaus.am.gov.br/"
                     target="_blank"
-                    tabindex="-1"
                   >
                     <img
                       width="162"
@@ -729,12 +720,10 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-cloned"
                   data-slick-index="-5"
                   aria-hidden="true"
-                  tabindex="-1"
                 >
                   <a
                     href="http://mapademanaus.manaus.am.gov.br/"
                     target="_blank"
-                    tabindex="-1"
                   >
                     <img
                       width="162"
@@ -750,13 +739,8 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-cloned"
                   data-slick-index="-4"
                   aria-hidden="true"
-                  tabindex="-1"
                 >
-                  <a
-                    href="http://nota.manaus.am.gov.br/"
-                    target="_blank"
-                    tabindex="-1"
-                  >
+                  <a href="http://nota.manaus.am.gov.br/" target="_blank">
                     <img
                       width="162"
                       height="92"
@@ -771,12 +755,10 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-cloned"
                   data-slick-index="-3"
                   aria-hidden="true"
-                  tabindex="-1"
                 >
                   <a
                     href="http://notapremiada.manaus.am.gov.br/"
                     target="_blank"
-                    tabindex="-1"
                   >
                     <img
                       width="162"
@@ -792,13 +774,8 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-cloned"
                   data-slick-index="-2"
                   aria-hidden="true"
-                  tabindex="-1"
                 >
-                  <a
-                    href="http://ppp.manaus.am.gov.br/"
-                    target="_blank"
-                    tabindex="-1"
-                  >
+                  <a href="http://ppp.manaus.am.gov.br/" target="_blank">
                     <img
                       width="162"
                       height="92"
@@ -813,12 +790,10 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-cloned"
                   data-slick-index="-1"
                   aria-hidden="true"
-                  tabindex="-1"
                 >
                   <a
                     href="http://transparencia.manaus.am.gov.br/transparencia/v2/#/home"
                     target="_blank"
-                    tabindex="-1"
                   >
                     <img
                       width="162"
@@ -834,14 +809,12 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-current slick-active"
                   data-slick-index="0"
                   aria-hidden="false"
-                  tabindex="-1"
                   role="option"
                   aria-describedby="slick-slide00"
                 >
                   <a
                     href="http://semef.manaus.am.gov.br/wp-content/uploads/2021/01/CALENDARIO-2021.png"
                     target="_blank"
-                    tabindex="0"
                   >
                     <img
                       width="162"
@@ -857,14 +830,12 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-active"
                   data-slick-index="1"
                   aria-hidden="false"
-                  tabindex="-1"
                   role="option"
                   aria-describedby="slick-slide01"
                 >
                   <a
                     href="http://semef.manaus.am.gov.br/servicos-on-line/"
                     target="_blank"
-                    tabindex="0"
                   >
                     <img
                       width="162"
@@ -880,14 +851,12 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-active"
                   data-slick-index="2"
                   aria-hidden="false"
-                  tabindex="-1"
                   role="option"
                   aria-describedby="slick-slide02"
                 >
                   <a
                     href="http://www2.manaus.am.gov.br/docs/portal/secretarias/manausatende/Carta%20de%20Servi%C3%A7os%20ao%20Usu%C3%A1rio%20SEMEF%202018.pdf"
                     target="_blank"
-                    tabindex="0"
                   >
                     <img
                       width="162"
@@ -903,14 +872,12 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-active"
                   data-slick-index="3"
                   aria-hidden="false"
-                  tabindex="-1"
                   role="option"
                   aria-describedby="slick-slide03"
                 >
                   <a
                     href="http://compras.manaus.am.gov.br/publico"
                     target="_blank"
-                    tabindex="0"
                   >
                     <img
                       width="162"
@@ -926,14 +893,12 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-active"
                   data-slick-index="4"
                   aria-hidden="false"
-                  tabindex="-1"
                   role="option"
                   aria-describedby="slick-slide04"
                 >
                   <a
                     href="http://www.concursosfcc.com.br/concursos/semef118/index.html"
                     target="_blank"
-                    tabindex="0"
                   >
                     <img
                       width="162"
@@ -949,14 +914,12 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-active"
                   data-slick-index="5"
                   aria-hidden="false"
-                  tabindex="-1"
                   role="option"
                   aria-describedby="slick-slide05"
                 >
                   <a
                     href="http://semef.manaus.am.gov.br/credenciamento-bancario"
                     target="_blank"
-                    tabindex="0"
                   >
                     <img
                       width="162"
@@ -972,14 +935,12 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide"
                   data-slick-index="6"
                   aria-hidden="true"
-                  tabindex="-1"
                   role="option"
                   aria-describedby="slick-slide06"
                 >
                   <a
                     href="http://semefatende.manaus.am.gov.br/"
                     target="_blank"
-                    tabindex="-1"
                   >
                     <img
                       width="162"
@@ -995,14 +956,12 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide"
                   data-slick-index="7"
                   aria-hidden="true"
-                  tabindex="-1"
                   role="option"
                   aria-describedby="slick-slide07"
                 >
                   <a
                     href="http://mapademanaus.manaus.am.gov.br/"
                     target="_blank"
-                    tabindex="-1"
                   >
                     <img
                       width="162"
@@ -1018,15 +977,10 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide"
                   data-slick-index="8"
                   aria-hidden="true"
-                  tabindex="-1"
                   role="option"
                   aria-describedby="slick-slide08"
                 >
-                  <a
-                    href="http://nota.manaus.am.gov.br/"
-                    target="_blank"
-                    tabindex="-1"
-                  >
+                  <a href="http://nota.manaus.am.gov.br/" target="_blank">
                     <img
                       width="162"
                       height="92"
@@ -1041,14 +995,12 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide"
                   data-slick-index="9"
                   aria-hidden="true"
-                  tabindex="-1"
                   role="option"
                   aria-describedby="slick-slide09"
                 >
                   <a
                     href="http://notapremiada.manaus.am.gov.br/"
                     target="_blank"
-                    tabindex="-1"
                   >
                     <img
                       width="162"
@@ -1064,15 +1016,10 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide"
                   data-slick-index="10"
                   aria-hidden="true"
-                  tabindex="-1"
                   role="option"
                   aria-describedby="slick-slide010"
                 >
-                  <a
-                    href="http://ppp.manaus.am.gov.br/"
-                    target="_blank"
-                    tabindex="-1"
-                  >
+                  <a href="http://ppp.manaus.am.gov.br/" target="_blank">
                     <img
                       width="162"
                       height="92"
@@ -1087,14 +1034,12 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide"
                   data-slick-index="11"
                   aria-hidden="true"
-                  tabindex="-1"
                   role="option"
                   aria-describedby="slick-slide011"
                 >
                   <a
                     href="http://transparencia.manaus.am.gov.br/transparencia/v2/#/home"
                     target="_blank"
-                    tabindex="-1"
                   >
                     <img
                       width="162"
@@ -1110,12 +1055,10 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-cloned"
                   data-slick-index="12"
                   aria-hidden="true"
-                  tabindex="-1"
                 >
                   <a
                     href="http://semef.manaus.am.gov.br/wp-content/uploads/2021/01/CALENDARIO-2021.png"
                     target="_blank"
-                    tabindex="-1"
                   >
                     <img
                       width="162"
@@ -1131,12 +1074,10 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-cloned"
                   data-slick-index="13"
                   aria-hidden="true"
-                  tabindex="-1"
                 >
                   <a
                     href="http://semef.manaus.am.gov.br/servicos-on-line/"
                     target="_blank"
-                    tabindex="-1"
                   >
                     <img
                       width="162"
@@ -1152,12 +1093,10 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-cloned"
                   data-slick-index="14"
                   aria-hidden="true"
-                  tabindex="-1"
                 >
                   <a
                     href="http://www2.manaus.am.gov.br/docs/portal/secretarias/manausatende/Carta%20de%20Servi%C3%A7os%20ao%20Usu%C3%A1rio%20SEMEF%202018.pdf"
                     target="_blank"
-                    tabindex="-1"
                   >
                     <img
                       width="162"
@@ -1173,12 +1112,10 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-cloned"
                   data-slick-index="15"
                   aria-hidden="true"
-                  tabindex="-1"
                 >
                   <a
                     href="http://compras.manaus.am.gov.br/publico"
                     target="_blank"
-                    tabindex="-1"
                   >
                     <img
                       width="162"
@@ -1194,12 +1131,10 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-cloned"
                   data-slick-index="16"
                   aria-hidden="true"
-                  tabindex="-1"
                 >
                   <a
                     href="http://www.concursosfcc.com.br/concursos/semef118/index.html"
                     target="_blank"
-                    tabindex="-1"
                   >
                     <img
                       width="162"
@@ -1215,12 +1150,10 @@ function Home() {
                   className="w190 col-xs-6 col-sm-3 col-md-2 banner-item slick-slide slick-cloned"
                   data-slick-index="17"
                   aria-hidden="true"
-                  tabindex="-1"
                 >
                   <a
                     href="http://semef.manaus.am.gov.br/credenciamento-bancario"
                     target="_blank"
-                    tabindex="-1"
                   >
                     <img
                       width="162"
@@ -1302,7 +1235,6 @@ function Home() {
       <div
         className="modal fade"
         id="modalEventos"
-        tabindex="-1"
         role="dialog"
         aria-labelledby="myModalLabel"
       >
