@@ -35,20 +35,9 @@ function Dashboard() {
         <Table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>CPF</th>
-              <th>Nome</th>
-              <th>Status</th>
-              <th>Email</th>
-              <th>Telefone</th>
-              <th>CEP</th>
-              <th>Cidade</th>
-              <th>UF</th>
-              <th>Bairro</th>
-              <th>Logradouro</th>
-              <th>Número</th>
-              <th>Criado em</th>
-              <th>Atualizado em</th>
+              {TableHeaderItems().map((item) => {
+                return <th>{item}</th>;
+              })}
             </tr>
           </thead>
 
@@ -60,7 +49,7 @@ function Dashboard() {
                 );
               })
             ) : (
-              <p>There's no contributors registered yet.</p>
+              <p>Loading data...</p>
             )}
           </tbody>
         </Table>
@@ -70,3 +59,24 @@ function Dashboard() {
 }
 
 export default withRouter(Dashboard);
+
+function TableHeaderItems() {
+  const [items] = useState([
+    "ID",
+    "CPF",
+    "Nome",
+    "Status",
+    "Email",
+    "Telefone",
+    "CEP",
+    "Cidade",
+    "UF",
+    "Bairro",
+    "Logradouro",
+    "Número",
+    "Criado em",
+    "Atualizado em",
+  ]);
+
+  return items;
+}
