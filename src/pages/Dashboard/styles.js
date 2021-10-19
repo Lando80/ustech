@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  padding: 1rem 2rem;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
 `;
 
 export const Table = styled.table`
   display: block;
   overflow-x: auto;
-  width: 100%;
-
   border-spacing: 0;
   border-collapse: collapse;
   border-radius: 0.25rem;
