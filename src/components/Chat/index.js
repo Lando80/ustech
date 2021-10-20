@@ -18,6 +18,7 @@ function Chat() {
     email: "",
     telefone: "",
     cep: "",
+    numero: "",
   });
 
   const [conversation, setConversation] = useState({
@@ -136,7 +137,7 @@ function Chat() {
 
   // e toda vez que a userMessage for atualizada, chamaremos a requisicao de acordo com o index
   useEffect(() => {
-    if (conversation.messageIndex > 4) {
+    if (conversation.messageIndex > 5) {
       setTimeout(() => {
         addResponseMessage(
           `Foi um prazer conversar com você, ${
@@ -168,7 +169,7 @@ function Chat() {
         botResponse: "",
       }));
 
-      if (conversation.messageIndex === 5) {
+      if (conversation.messageIndex === 6) {
         setConversation((prev) => ({ ...prev, userMessage: "Tchau" }));
       }
     }
