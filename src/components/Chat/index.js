@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Widget, addResponseMessage } from "react-chat-widget";
+import {
+  Widget,
+  addResponseMessage,
+  toggleInputDisabled,
+} from "react-chat-widget";
 import "react-chat-widget/lib/styles.css";
 import "./style.css";
+import avatar from "../../assets/avatar.jpeg";
 
 import api from "../../services/api";
 
@@ -22,9 +27,13 @@ function Chat() {
   });
 
   useEffect(() => {
+    initialConversation();
+  }, []);
+
+  const initialConversation = () => {
     addResponseMessage("Olá, eu sou a MIA 🤗");
     addResponseMessage("Como você se chama?");
-  }, []);
+  };
 
   const createContributor = async () => {
     const nome = conversation.userMessage;
@@ -56,21 +65,18 @@ function Chat() {
   };
 
   const updateContributor = async () => {
-    // pegando o id do contributor
-    const { _id } = contributor;
     // copiando o estado de contributor
     let obj = contributor;
-    // removendo a chave id
-    delete obj._id;
 
     // criando um novo array para receber as chaves do objeto
-    const objKeys = [];
+    const keysCollection = [];
     for (const key in obj) {
-      objKeys.push(key);
+      if (key === "_id") continue;
+      keysCollection.push(key);
     }
 
     // pegando o campo atual de acordo com a posição do index
-    const currentKey = objKeys[conversation.messageIndex];
+    const currentKey = keysCollection[conversation.messageIndex];
 
     // pegando o valor que o usuario informou para o campo atua
     const value = conversation.userMessage;
@@ -81,7 +87,7 @@ function Chat() {
       // caso o user esteja no cpf, tambem precisamos informar o id dele
       if (currentKey === "cpf") {
         res = await api.put(`/contributor/${currentKey}`, {
-          _id,
+          _id: contributor._id,
           [currentKey]: value,
         });
       }
@@ -130,20 +136,26 @@ function Chat() {
 
   // e toda vez que a userMessage for atualizada, chamaremos a requisicao de acordo com o index
   useEffect(() => {
+    if (conversation.messageIndex > 4) {
+      setTimeout(() => {
+        addResponseMessage(
+          `Foi um prazer conversar com você, ${
+            contributor.nome.split(" ")[0]
+          } 😊`
+        );
+        addResponseMessage("Até mais 🙋‍♀️");
+        toggleInputDisabled();
+      }, 1500);
+
+      return;
+    }
+
     // caso o index == 0, criamos o contribuinte no banco
     if (conversation.userMessage && conversation.messageIndex === 0)
       createContributor();
     //caso nao, atualizamos os outros dados
     if (conversation.userMessage && conversation.messageIndex > 0)
       updateContributor();
-
-    // NAO TA FUNCIONANDO, REFATORAR
-    if (conversation.messageIndex > 5) {
-      addResponseMessage(
-        `Foi um prazer conversar com você, ${contributor.nome.split("")[0]} 😊`
-      );
-      addResponseMessage("Até mais 🙋‍♀️");
-    }
   }, [conversation.userMessage]);
 
   useEffect(() => {
@@ -155,6 +167,10 @@ function Chat() {
         ...prev,
         botResponse: "",
       }));
+
+      if (conversation.messageIndex === 5) {
+        setConversation((prev) => ({ ...prev, userMessage: "Tchau" }));
+      }
     }
   }, [conversation.botResponse]);
 
@@ -164,6 +180,7 @@ function Chat() {
         handleNewUserMessage={handleNewUserMessage}
         title="MIA"
         subtitle="Sua Assistente Virtual"
+        profileAvatar={avatar}
       />
     </div>
   );
