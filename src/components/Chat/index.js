@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
   Widget,
+  setQuickButtons,
   addResponseMessage,
+  addUserMessage,
   toggleInputDisabled,
+  toggleWidget,
 } from "react-chat-widget";
 import "react-chat-widget/lib/styles.css";
 import "./style.css";
@@ -10,181 +13,327 @@ import avatar from "../../assets/avatar.jpeg";
 
 import api from "../../services/api";
 
-function Chat() {
+export default function Chat() {
   const [contributor, setContributor] = useState({
-    _id: "",
-    nome: "",
     cpf: "",
+    "data-nasc": "",
+    nome: "",
     email: "",
     telefone: "",
     cep: "",
-    numero: "",
   });
 
   const [conversation, setConversation] = useState({
-    userMessage: "",
+    makeRequest: false,
     botResponse: "",
-    messageIndex: 0,
+    userMessage: "",
+    userOption: "",
+    intent: "",
+    init: true,
+    presentation: true,
   });
 
-  useEffect(() => {
-    initialConversation();
-  }, []);
-
-  const initialConversation = () => {
-    addResponseMessage("Olá, eu sou a MIA 🤗");
-    addResponseMessage("Como você se chama?");
-  };
-
   const createContributor = async () => {
-    const nome = conversation.userMessage;
+    const { cpf } = contributor;
+    const dataNasc = contributor["data-nasc"];
 
     try {
-      const res = await api.post("/contributor", { nome });
+      const res = await api.post("/contributor", {
+        cpf,
+        ["data-nasc"]: dataNasc,
+      });
+
+      const { messages, status } = res.data;
 
       setConversation((prev) => ({
         ...prev,
-        botResponse: res.data.message,
-        messageIndex: prev.messageIndex + 1,
+        intent: status.nextIntent,
       }));
 
-      const { _id } = res.data;
+      messages.map((message, index) => {
+        setTimeout(() => {
+          addResponseMessage(message);
+        }, 500 * index);
+      });
+    } catch (err) {
+      const { data } = err.response;
 
-      setContributor((prev) => ({ ...prev, nome, _id }));
-    } catch (error) {
-      let { response } = error;
-
-      if (response.status === 500) {
-        addResponseMessage(
-          "Ops... Parece que estou com um probleminha em meu servidor 😯"
-        );
-        addResponseMessage("Volte daqui a poquinho, por favor 😅");
-        return;
+      if (typeof data.message === "string") {
+        addResponseMessage(data.message);
+      } else {
+        data.error.map((message) => {
+          addResponseMessage(message);
+        });
       }
-      addResponseMessage(response.data.message);
+
+      setConversation((prev) => ({ ...prev, intent: "completed" }));
+    }
+  };
+
+  const storeNewData = async () => {
+    const { intent } = conversation;
+    const value = contributor[intent];
+
+    const data = {
+      intent,
+      data: value,
+    };
+
+    const headers = {
+      cpf: contributor.cpf,
+      "data-nasc": contributor["data-nasc"],
+    };
+
+    try {
+      const res = await api.post("/contributor/data", data, { headers });
+
+      const { messages, status } = res.data;
+
+      messages.map((message, index) => {
+        setTimeout(() => {
+          addResponseMessage(message);
+        }, 500 * index);
+      });
+
+      setConversation((prev) => ({
+        ...prev,
+        intent: status.nextIntent || "completed",
+      }));
+    } catch (err) {
+      const { data } = err.response;
+
+      if (typeof data.message === "string") {
+        addResponseMessage(data.message);
+      } else {
+        data.message.map((message, index) => {
+          setTimeout(() => {
+            addResponseMessage(message);
+          }, 500 * index);
+        });
+      }
     }
   };
 
   const updateContributor = async () => {
-    // copiando o estado de contributor
-    let obj = contributor;
+    const { intent } = conversation;
+    const value = contributor[intent];
 
-    // criando um novo array para receber as chaves do objeto
-    const keysCollection = [];
-    for (const key in obj) {
-      if (key === "_id") continue;
-      keysCollection.push(key);
-    }
+    const data = {
+      intent,
+      data: value,
+    };
 
-    // pegando o campo atual de acordo com a posição do index
-    const currentKey = keysCollection[conversation.messageIndex];
-
-    // pegando o valor que o usuario informou para o campo atua
-    const value = conversation.userMessage;
+    const headers = {
+      cpf: contributor.cpf,
+      "data-nasc": contributor["data-nasc"],
+    };
 
     try {
-      let res = "";
+      const res = await api.put("/contributor/data", data, { headers });
 
-      // caso o user esteja no cpf, tambem precisamos informar o id dele
-      if (currentKey === "cpf") {
-        res = await api.put(`/contributor/${currentKey}`, {
-          _id: contributor._id,
-          [currentKey]: value,
+      const { message } = res.data;
+
+      setTimeout(() => {
+        addResponseMessage(message);
+      }, 500);
+    } catch (err) {
+      const { data } = err.response;
+
+      if (typeof data.message === "string") {
+        addResponseMessage(data.message);
+      } else {
+        data.message.map((message, index) => {
+          setTimeout(() => {
+            addResponseMessage(message);
+          }, 500 * index);
         });
       }
-      // caso nao, precisamos informar o campo atual + o cpf
-      else {
-        res = await api.put(`/contributor/${currentKey}`, {
-          [currentKey]: value,
-          cpf: contributor.cpf,
-        });
-      }
-
-      // se tudo der certo, vamos atualizar o estado da conversa
-      // adicionamos a resposta da requisicao na botResponse e atualizamos o index
-      setConversation((prev) => ({
-        ...prev,
-        botResponse: res.data.message,
-        messageIndex: prev.messageIndex + 1,
-      }));
-
-      // e tambem atualizamos o estado do contribuinte de forma dinamica
-      setContributor((prev) => ({ ...prev, [currentKey]: value }));
-    } catch (error) {
-      let { response } = error;
-
-      // caso ocorra algum erro no servidor...
-      if (response.status === 500) {
-        addResponseMessage(
-          "Ops... Parece que estou com um probleminha em meu servidor 😯"
-        );
-        addResponseMessage("Volte daqui a poquinho, por favor 😅");
-        return;
-      }
-
-      // caso o usuario tenha informado algum valor invalido para o campo atual
-      addResponseMessage(response.data.message);
     }
-  };
 
-  const handleNewUserMessage = (userMessage) => {
-    // sempre que o usuario enviar uma nova mensagem, atualizamos o estado da userMessage
     setConversation((prev) => ({
       ...prev,
-      userMessage,
+      intent: "completed",
     }));
   };
 
-  // e toda vez que a userMessage for atualizada, chamaremos a requisicao de acordo com o index
-  useEffect(() => {
-    if (conversation.messageIndex > 5) {
-      setTimeout(() => {
-        addResponseMessage(
-          `Foi um prazer conversar com você, ${
-            contributor.nome.split(" ")[0]
-          } 😊`
-        );
-        addResponseMessage("Até mais 🙋‍♀️");
-        toggleInputDisabled();
-      }, 1500);
+  const getContributor = async () => {
+    const config = {
+      headers: {
+        cpf: contributor.cpf,
+        "data-nasc": contributor["data-nasc"],
+      },
+    };
+    try {
+      const res = await api.get("/contributor", config);
 
+      const { message, firstName } = res.data;
+
+      addResponseMessage(`Olá, ${firstName} 😊`);
+
+      if (conversation.userOption === "Atualizar") {
+        addResponseMessage("Quais dados voce quer atualizar?");
+        toggleInputDisabled();
+        return;
+      }
+
+      addResponseMessage("Estes são seus dados cadastrados 📁");
+
+      message.map((msg) => addResponseMessage(msg));
+      setConversation((prev) => ({ ...prev, intent: "completed" }));
+    } catch (err) {
+      const { data } = err.response;
+
+      if (typeof data.message === "string") {
+        addResponseMessage(data.message);
+      } else {
+        data.message.map((message, index) => {
+          setTimeout(() => {
+            addResponseMessage(message);
+          }, 500 * index);
+        });
+        setConversation((prev) => ({ ...prev, intent: "completed" }));
+      }
+    }
+  };
+
+  const initConversation = () => {
+    toggleInputDisabled();
+
+    if (conversation.presentation) {
+      addResponseMessage("Olá, eu sou a MIA 🤗");
+      addResponseMessage("Como posso te ajudar?");
+    } else {
+      addResponseMessage("Posso te ajudar com mais alguma coisa? 🙋‍♀️");
+    }
+    setQuickButtons([
+      { label: "Cadastrar dados", value: "Cadastrar dados" },
+      { label: "Atualizar dados", value: "Atualizar dados" },
+      { label: "Mostrar dados", value: "Mostrar dados" },
+    ]);
+  };
+
+  const handleNewUserMessage = (userMessage) => {
+    if (conversation.intent === "cpf") {
+      setContributor((prev) => ({ ...prev, cpf: userMessage }));
+      setConversation((prev) => ({ ...prev, intent: "data-nasc" }));
       return;
     }
 
-    // caso o index == 0, criamos o contribuinte no banco
-    if (conversation.userMessage && conversation.messageIndex === 0)
-      createContributor();
-    //caso nao, atualizamos os outros dados
-    if (conversation.userMessage && conversation.messageIndex > 0)
-      updateContributor();
+    if (conversation.intent === "data-nasc") {
+      setContributor((prev) => ({ ...prev, ["data-nasc"]: userMessage }));
+      setConversation((prev) => ({ ...prev, makeRequest: true, userMessage }));
+      return;
+    }
+
+    setContributor((prev) => ({ ...prev, [conversation.intent]: userMessage }));
+    setConversation((prev) => ({ ...prev, userMessage }));
+  };
+
+  const handleUserOption = (userOption) => {
+    setQuickButtons([]);
+    addUserMessage(userOption);
+    toggleInputDisabled();
+
+    if (conversation.userOption === "Atualizar") {
+      setConversation((prev) => ({
+        ...prev,
+        userOption: "update",
+        intent: userOption,
+      }));
+
+      addResponseMessage(`Digite o seu novo ${userOption.toUpperCase()} 🤗`);
+      return;
+    }
+
+    setConversation((prev) => ({
+      ...prev,
+      userOption: userOption.split(" ")[0],
+      userMessage: true,
+      intent: "cpf",
+    }));
+  };
+
+  useEffect(() => {
+    const { intent } = conversation;
+    if (intent === "cpf" && !conversation.botResponse) {
+      addResponseMessage("Vou precisar do seu CPF 😉");
+      return;
+    }
+
+    if (intent === "data-nasc") {
+      addResponseMessage("Agora informe sua data de nascimento 😊");
+      return;
+    }
+
+    if (intent === "completed") {
+      // reinicia a conversa quando completa uma task
+      setTimeout(() => {
+        setConversation({
+          makeRequest: false,
+          botResponse: "",
+          userMessage: "",
+          userOption: "",
+          intent: "",
+          presentation: false,
+          init: true,
+        });
+      }, 2000);
+    }
+  }, [conversation.intent]);
+
+  useEffect(() => {
+    const { makeRequest, userOption, intent } = conversation;
+
+    if (makeRequest) {
+      switch (userOption) {
+        case "Cadastrar":
+          if (intent === "cpf" || intent === "data-nasc") {
+            createContributor();
+          } else {
+            storeNewData();
+          }
+          break;
+
+        case "Atualizar":
+          getContributor();
+          setQuickButtons([
+            { label: "Email", value: "email" },
+            { label: "Whatsapp", value: "telefone" },
+            { label: "CEP", value: "cep" },
+          ]);
+          break;
+
+        case "update":
+          updateContributor();
+          break;
+
+        case "Mostrar":
+          getContributor();
+          break;
+
+        default:
+          break;
+      }
+    }
   }, [conversation.userMessage]);
 
   useEffect(() => {
-    // sera executado quando a resposta do bot for atualizado pela requisicao
-    if (conversation.botResponse) {
-      addResponseMessage(conversation.botResponse);
-
-      setConversation((prev) => ({
-        ...prev,
-        botResponse: "",
-      }));
-
-      if (conversation.messageIndex === 6) {
-        setConversation((prev) => ({ ...prev, userMessage: "Tchau" }));
-      }
+    if (conversation.init) {
+      initConversation(); // start conversation
+      setConversation((prev) => ({ ...prev, init: false }));
     }
-  }, [conversation.botResponse]);
+  }, [conversation.init]);
 
   return (
     <div className="App">
       <Widget
         handleNewUserMessage={handleNewUserMessage}
-        title="MIA"
-        subtitle="Sua Assistente Virtual"
+        handleQuickButtonClicked={handleUserOption}
+        title="Fale com a MIA"
+        subtitle=""
         profileAvatar={avatar}
+        senderPlaceHolder="Digite sua resposta"
       />
     </div>
   );
 }
-
-export default Chat;

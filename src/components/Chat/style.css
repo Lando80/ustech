@@ -1,11 +1,19 @@
-.rcw-conversation-container > .rcw-header {
+.rcw-widget-container {
+  right: 6px;
+  /* max-width: 25rem;  */
+}
+
+.rcw-conversation-container .rcw-header {
   background-color: #10559b;
+  text-align: left;
+  padding: 1.25rem;
+}
+
+.rcw-conversation-container h4.rcw-title {
+  padding: 0;
+  font-size: 1.25rem; /*18px*/
 }
 
 .rcw-message-text > p {
   color: black;
-}
-
-.rcw-widget-container {
-  z-index: 999 !important;
 }
